@@ -109,7 +109,26 @@ class M_curso extends CI_Model
     }
 
 
+    public function consultarSoCursoDesativado($idCurso)
+    {
+        $sql = "select * from curso
+        where id_curso = '$idCurso'
+        and estatus = 'D'";
+        $retorno = $this->db->query($sql);
+        if ($retorno->num_rows() > 0) {
+            $dados = array(
+                'codigo' => 1,
+                'msg'    => 'Consulta efetuada com sucesso'
+            );
+        } else {
+            $dados = array(
+                'codigo' => 2,
+                'msg'    => 'Dados não encontrados.'
+            );
+        }
+        return $dados;
 
+    }
     public function alterarCurso($idCurso, $descricao)
 {
     $retornoCurso = $this->consultarSoCurso($idCurso);
@@ -172,6 +191,46 @@ class M_curso extends CI_Model
             }
 
     }
+
+        return $dados;
+    }
+
+    public function ativaCurso($idCurso)
+    {
+        $retornoAluno = $this->consultarSoCursoDesativado($idCurso);
+        if ($retornoAluno['codigo'] == 1) {
+            $sql = "update curso set estatus = ''
+            where id_curso = $idCurso";
+            $this->db->query($sql);
+            if ($this->db->affected_rows() > 0) {
+                $dados = array(
+                    'codigo' => 1,
+                    'msg'    => 'Curso ativado corretamente.'
+                );
+            } else {
+                $dados = array(
+                    'codigo' => 2,
+
+
+
+                    'Houve algum problema na ativação do curso.'
+                );
+            }
+        } else {
+            $dados = array(
+                'codigo' => 4,
+
+
+
+                'msg'    => ' O ID não está desativado.'
+            );
+        }
+
+
+
+
+
+
 
         return $dados;
     }

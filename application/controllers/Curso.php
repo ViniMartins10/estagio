@@ -280,4 +280,82 @@ class Curso extends CI_Controller
 
         echo json_encode($retorno);
     }
+
+
+
+
+    public function ativaCurso()
+    {
+
+
+
+        $json = file_get_contents('php://input');
+
+
+
+        $resultado = json_decode($json);
+
+
+
+        $lista = array("idCurso" => '0',
+                        );
+
+
+
+
+
+        if (verificarParam($resultado, $lista) == 1) {
+
+
+
+
+
+
+
+            $this->setIdCurso($resultado->idCurso);
+
+
+
+
+
+
+
+            if (strlen($this->getIdCurso()) == 0) {
+
+
+
+                $retorno = array(
+                    'codigo' => 3,
+
+
+
+                    'msg' => 'RA do aluno não informado'
+                );
+            } else {
+
+
+
+                $this->load->model('M_curso');
+
+
+
+                $retorno = $this->M_curso->ativaCurso($this->getIdCurso());
+            }
+        } else {
+
+
+
+            $retorno = array(
+                'codigo' => 99,
+
+
+
+                'msg' => 'Os campos vindos do FrontEnd não representa, o método de consulta, verifique.'
+            );
+        }
+
+
+
+        echo json_encode($retorno);
+    }
 }

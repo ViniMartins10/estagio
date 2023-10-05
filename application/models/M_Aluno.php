@@ -311,6 +311,7 @@ class M_aluno extends CI_Model
             where ra = $ra";
             $this->db->query($sql);
 
+            
             if ($this->db->affected_rows() > 0) {
                 $dados = array(
                     'codigo' => 1,
@@ -329,7 +330,10 @@ class M_aluno extends CI_Model
             );
         }
     } else{
-        $dados = array();
+        $dados = array(
+            'codigo' => 5,
+            'msg' => 'Id do professor é necessário.'
+        );
     }
         return $dados;
         
@@ -339,8 +343,13 @@ class M_aluno extends CI_Model
 
 
 
-    public function ativaAluno($ra)
+    public function ativaAluno($ra,$id)
     {
+        $professor = new M_professor();
+        $retornoProfessor = $professor -> consultarSoProfessor($id);
+       
+       
+       if ($retornoProfessor['codigo']==1){
         $retornoAluno = $this->consultarSoAlunoDesativado($ra);
         if ($retornoAluno['codigo'] == 1) {
             $sql = "update aluno set estatus = ''
@@ -369,6 +378,14 @@ class M_aluno extends CI_Model
                 'msg'    => ' O RA não está desativado.'
             );
         }
+    }else{
+        $dados = array(
+            'codigo' => 5,
+
+
+
+            'msg'    => ' É necessário o id do professor.');
+    }
 
 
 

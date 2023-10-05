@@ -46,6 +46,8 @@ class aluno extends CI_Controller
 
 
 
+
+
     public function getRA()
     {
 
@@ -533,7 +535,7 @@ class aluno extends CI_Controller
             
 
 
-
+            
 
 
 
@@ -552,11 +554,11 @@ class aluno extends CI_Controller
 
 
 
-                $this->load->model('M_aluno');
+                $this->load->model('M_Aluno');
 
 
 
-                $retorno = $this->M_aluno->apagarAluno($this->getRA(),$id);
+                $retorno = $this->M_Aluno->apagarAluno($this->getRA(),$id);
             }
         } else {
 
@@ -595,7 +597,8 @@ class aluno extends CI_Controller
 
 
 
-        $lista = array("ra" => '0');
+        $lista = array("ra" => '0',
+                       "id"=> '0');
 
 
 
@@ -612,7 +615,7 @@ class aluno extends CI_Controller
 
 
             $this->setRA($resultado->ra);
-
+            $id = $resultado -> id;
 
 
 
@@ -638,7 +641,7 @@ class aluno extends CI_Controller
 
 
 
-                $retorno = $this->M_aluno->ativaAluno($this->getRA());
+                $retorno = $this->M_aluno->ativaAluno($this->getRA(), $id);
             }
         } else {
 
