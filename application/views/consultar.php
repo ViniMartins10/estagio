@@ -70,30 +70,7 @@
                     // Limpar resultados anteriores
                     $('#resultados').empty();
 
-                    if (response.dados.length == 1) {
-                        var tableHTML = '<table class="table">\n' +
-                            '<thead>\n' +
-                            '<tr>\n' +
-                            '<th scope="col">ID</th>\n' +
-                            '<th scope="col">Nome</th>\n' +
-                            '<th scope="col">Estatus</th>\n' +
-                            '</tr>\n' +
-                            '</thead>\n' +
-                            '<tbody>';
-
-                        response.dados.forEach(function(professor) {
-                            tableHTML += '<tr>' +
-                                '<td>' + professor.id + '</td>' +
-                                '<td>' + professor.nome + '</td>' +
-                                '<td>' + professor.estatus + '</td>' +
-                                '</tr>';
-                        });
-
-                        tableHTML += '</tbody></table>';
-                        // Adicionar tabela de resultados à página
-                        $('#resultados').html(tableHTML);
-                       
-                    } else {
+                    
                         // Criar tabela de resultados
                         var tableHTML = '<table class="table">\n' +
                             '<thead>\n' +
@@ -107,7 +84,7 @@
 
                         response.dados.forEach(function(professor) {
                             tableHTML += '<tr>' +
-                                '<td>' + professor.id + '</td>' +
+                                '<td>' + professor.id_professor + '</td>' +
                                 '<td>' + professor.nome + '</td>' +
                                 '<td>' + professor.estatus + '</td>' +
                                 '</tr>';
@@ -116,7 +93,7 @@
                         tableHTML += '</tbody></table>';
                         // Adicionar tabela de resultados à página
                         $('#resultados').html(tableHTML);
-                    }
+                    
                 } else {
                     Swal.fire({
                         title: 'Atenção!',

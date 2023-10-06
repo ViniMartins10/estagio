@@ -22,4 +22,8 @@ class Funcoes extends CI_Controller{
         $this->load->helper('url');
         $this->load->view('alterar');
     }
+    public function deletar(){
+        $this->load->helper('url');
+        $this->load->view('deletar');
+    }
 }
